@@ -192,11 +192,11 @@ class AccountMove(models.Model):
             raise ValidationError(_(
                 'You can create sales/purchase invoices exclusively in the respective sales/purchase journals'))
 
-    def unlink(self):
-        """ If we delete a journal entry that is related to a reconcile line then we need to clean the statement line
-        in order to be able to reconcile in the future (clean up the move_name field)."""
-        self.mapped('line_ids.statement_line_id').write({'move_name': False})
-        return super().unlink()
+    # def unlink(self):
+    #     """ If we delete a journal entry that is related to a reconcile line then we need to clean the statement line
+    #     in order to be able to reconcile in the future (clean up the move_name field)."""
+    #     self.mapped('line_ids.statement_line_id').write({'move_name': False})
+    #     return super().unlink()
 
     def _recompute_tax_lines(self, recompute_tax_base_amount=False):
         """ Odoo recomputa todos los impuestos cada vez que hay un cambio en la factura, esto trae dos problemas:
